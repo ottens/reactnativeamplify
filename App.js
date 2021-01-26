@@ -1,9 +1,3 @@
-// import { StatusBar } from 'expo-status-bar';
-// import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
-import Amplify, { Auth, API, graphqlOperation } from 'aws-amplify';
-import config from './aws-exports';
-
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TextInput, Text } from 'react-native';
 import { withAuthenticator } from 'aws-amplify-react-native';
@@ -11,13 +5,9 @@ import { DataStore, Predicates } from '@aws-amplify/datastore';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { CheckBox, Icon, ListItem, Input, Button, Header } from 'react-native-elements';
-import { Camera } from 'expo-camera';
+import Amplify, { Auth, API, graphqlOperation } from 'aws-amplify';
+import config from './aws-exports';
 
-// import * as Font from 'expo-font';
-// import { Ionicons } from '@expo/vector-icons';
-
-// import { createTodo } from './src/graphql/mutations.graphql';
-// import { listTodos } from 'src/graphql/queries.graphql';
 import { Todo } from './models';
 
 Amplify.configure(config);
@@ -27,8 +17,6 @@ const initialState = { name: '', description: '' };
 const App = () => {
   const [formState, setFormState] = useState(initialState);
   const [todos, setTodos] = useState([]);
-  // const [hasPermission, setHasPermission] = useState(null);
-  // const [type, setType] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {
     fetchTodos();
@@ -36,10 +24,6 @@ const App = () => {
       console.log({ model: msg.model, opType: msg.opType, element: msg.element });
       fetchTodos();
     });
-    // (async () => {
-    //   const { status } = await Camera.requestPermissionsAsync();
-    //   setHasPermission(status === 'granted');
-    // })();
   }, []);
 
   function setInput(key, value) {
@@ -166,29 +150,9 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, flexdirection: 'row', padding: 10, height: 100 },
-  // todo: { marginBottom: 15 },
-  // input: { height: 50, backgroundColor: '#ddd', marginBottom: 10, padding: 8 },
   todoName: { fontSize: 18 },
   addTodo: { padding: 0 },
   checkboxTodo: { border: 'none', backgroundColor: 'red' },
 });
 
 export default withAuthenticator(App);
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Open up App.js to start working on your app!</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
